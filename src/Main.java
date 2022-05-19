@@ -2,6 +2,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
+/* Main Class
+ * Run the Program from here
+ * Prints menu
+ * Executes all operations from function calls
+*/
 public class Main {
 
     private static Scanner scanner;
@@ -64,7 +70,8 @@ public class Main {
         scanner.close();
 
     }
-
+    
+    ///Method for adding matrices
     private static void addMatrices() {
 
         System.out.print("Enter dimensions of first matrix: ");
@@ -150,7 +157,8 @@ public class Main {
         }
 
     }
-
+    
+    //Method for constant multiplication
     private static void multiplyByConstant() {
 
         System.out.print("Enter dimensions of matrix: ");
@@ -203,7 +211,8 @@ public class Main {
         }
 
     }
-
+    
+    //Method for Matrix Multiplication
     private static void multiplyMatrices() {
 
         System.out.print("Enter dimensions of first matrix: ");
@@ -289,7 +298,8 @@ public class Main {
         }
 
     }
-
+    
+    //Method to trigger transpose matrix call to be executed
     private static void transposeMatrix() {
 
         System.out.print("\n" +
@@ -324,7 +334,8 @@ public class Main {
         executeTransposition(matrix, transposition);
 
     }
-
+    
+    //Method to calculate determinant
     private static void calculateDeterminant() {
 
         System.out.print("Enter dimensions of matrix: ");
@@ -368,7 +379,8 @@ public class Main {
 
         }
     }
-
+    
+    //Method to calculate Inverse
     private static void inverse() {
 
         System.out.print("Enter dimensions: ");
@@ -421,7 +433,8 @@ public class Main {
 
         }
     }
-
+    
+    //Implementing Tranpose operations along chosen diagonal
     private static <T> void executeTransposition(Matrix<T> matrix, int transposition) {
         Matrix<T> matrix0 = new Matrix<>(matrix.getRows(), matrix.getColumns(), matrix.getTable());
         switch(transposition) {
