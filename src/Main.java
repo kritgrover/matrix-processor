@@ -13,10 +13,10 @@ public class Main {
         System.out.println("4. Transpose Matrix");
         System.out.println("5. Calculate Determinant");
         System.out.println("6. Calculate Inverse of a Matrix");
-        System.out.println("0. Exit");
+        System.out.println("7. Exit");
         int dec = in.nextInt();
 
-        while (dec != 0) {
+        while (dec != 7) {
 
             switch(dec) {
 
