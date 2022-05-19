@@ -198,7 +198,7 @@ public class Main {
         // Taking choice as input
         int choice = in.nextInt();
         
-        // Implemening transpose along main diagonal
+        // Implementing transpose along main diagonal
         if (choice == 1) {
             
             System.out.println("Enter dimensions of Matrix: ");
