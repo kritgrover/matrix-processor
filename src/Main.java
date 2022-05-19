@@ -2,11 +2,20 @@ package processor;
 
 import java.util.Scanner;
 
+/* Class Main
+ * Prints Menu for User Input
+ * Consists of operations as methods
+ * Triggers all operations as function calls
+*/
 public class Main {
-
+    
+    // Main method to execute program
+    // Displays Menu and triggers operations
     public static void main(String[] args) {
+        
         Scanner in = new Scanner(System.in);
-
+        
+        // Printing Menu
         System.out.println("1. Add Matrices");
         System.out.println("2. Multiply Matrix by a Constant");
         System.out.println("3. Multiply Matrices");
@@ -14,8 +23,12 @@ public class Main {
         System.out.println("5. Calculate Determinant");
         System.out.println("6. Calculate Inverse of a Matrix");
         System.out.println("7. Exit");
+        
+        // Taking user input
         int dec = in.nextInt();
-
+        
+        // Choosing operation based on input
+        // Loop until 'Exit' option is chosen
         while (dec != 7) {
 
             switch(dec) {
@@ -55,7 +68,7 @@ public class Main {
         in.close();
     }
 
-
+    // Method for building and returning a matrix with given dimensions as argument 
     public static double[][] buildMat(int row, int col) {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter Matrix: ");
@@ -70,21 +83,24 @@ public class Main {
         return mat;
     }
 
-
+    // Method for implementing Addition on Matrices
     public static void Addition(){
 
         Scanner in = new Scanner(System.in);
-
+        
+        // Taking input matrix
         System.out.println("Enter dimensions of Matrix 1: ");
         int row1 = in.nextInt();
         int col1 = in.nextInt();
 
         double[][] mat1 = buildMat(row1, col1);
-
+        
+        // Taking input matrix
         System.out.println("Enter dimensions of Matrix 2: ");
         int row2 = in.nextInt();
         int col2 = in.nextInt();
-
+        
+        // Implementing addition if dimensions are same
         if ((row1 != row2) || (col1 != col2)) {
             System.out.println("Cannot add matrices with the given dimensions.");
         }
@@ -102,20 +118,24 @@ public class Main {
             }
         }
     }
-
+    
+    // Method for implementing Multiplication By Constant
     public static void Multi_Const(){
 
         Scanner in = new Scanner(System.in);
-
+        
+        // Taking input matrix
         System.out.println("Enter dimensions of Matrix: ");
         int row1 = in.nextInt();
         int col1 = in.nextInt();
-
+ 
         double[][] mat = buildMat(row1, col1);
-
+        
+        // Taking input constant
         System.out.println("Enter Constant: ");
         int n = in.nextInt();
-
+        
+        // Implementing and printing result
         for (int i = 0; i < row1; i++) {
             for (int j = 0; j < col1; j++) {
                 mat[i][j] = mat[i][j] * n;
@@ -124,20 +144,25 @@ public class Main {
             System.out.println();
         }
     }
-
+    
+    // Method for Implementing Matrix Multiplication
     public static void Multi_Mat(){
+        
         Scanner in = new Scanner(System.in);
-
+        
+        // Taking input matrix
         System.out.println("Enter dimensions of Matrix 1: ");
         int row1 = in.nextInt();
         int col1 = in.nextInt();
 
         double[][] mat1 = buildMat(row1, col1);
-
+        
+        // Taking input matrix
         System.out.println("Enter dimensions of Matrix 2: ");
         int row2 = in.nextInt();
         int col2 = in.nextInt();
-
+        
+        // Implementing matrix multiplication if possible with given dimensions
         if (col1 != row2) {
             System.out.println("Cannot multiply matrices with given dimensions.");
         }
@@ -157,18 +182,25 @@ public class Main {
             }
         }
     }
-
+    
+    // Method for implementing Matrix Transposition
     public static void Trans_Mat() {
+        
         Scanner in = new Scanner(System.in);
+        
+        // Printing Menu
         System.out.println("Transpose matrix along: ");
         System.out.println("1. Main Diagonal");
         System.out.println("2. Side Diagonal");
         System.out.println("3. Vertical Line");
         System.out.println("4. Horizontal Line");
+        
+        // Taking choice as input
         int choice = in.nextInt();
-
+        
+        // Implemening transpose along main diagonal
         if (choice == 1) {
-
+            
             System.out.println("Enter dimensions of Matrix: ");
             int row1 = in.nextInt();
             int col1 = in.nextInt();
@@ -184,7 +216,8 @@ public class Main {
                 System.out.println();
             }
         }
-
+        
+        // Implementing transpose along side diagonal
         else if (choice == 2) {
 
             System.out.println("Enter dimensions of Matrix: ");
@@ -203,7 +236,8 @@ public class Main {
 
             }
         }
-
+        
+        // Implementing transpose along vertical line
         else if (choice == 3) {
 
             System.out.println("Enter dimensions of Matrix: ");
@@ -222,7 +256,8 @@ public class Main {
 
             }
         }
-
+        
+        // Implementing transpose along horizontal line
         else if (choice == 4) {
 
             System.out.println("Enter dimensions of Matrix: ");
@@ -247,35 +282,43 @@ public class Main {
             System.out.println();
         }
     }
-
+    
+    // Method to implement determinant calculation
     public static void Deter(){
+        
         Scanner in = new Scanner(System.in);
-
+        
+        // Taking input matrix
         System.out.println("Enter dimensions of Matrix: ");
         int row1 = in.nextInt();
         int col1 = in.nextInt();
 
         double[][] mat1 = buildMat(row1, col1);
-
+        
+        // Calling determinant() function to implement calculation and printing result
         double det = determinant(mat1);
         System.out.println(det);
 
     }
-
+    
+    // Method to calculate determinant with given matrix as argument
     public static double determinant(double[][] arr) {
 
         double result = 0;
-
+        
+        // If matrix is 1 x 1
         if (arr.length == 1) {
             result = arr[0][0];
             return result;
         }
-
+        
+        // If matrix is 2 x 2
         if (arr.length == 2) {
             result = arr[0][0] * arr[1][1] - arr[0][1] * arr[1][0];
             return result;
         }
-
+        
+        // If matrix is 3 x 3 or bigger
         for (int i = 0; i < arr[0].length; i++) {
             double[][] temp = new double[arr.length - 1][arr[0].length - 1];
 
@@ -295,34 +338,42 @@ public class Main {
         }
         return result;
     }
-
+    
+    // Method to Implement Inversion of a Matrix
     public static void Inverse(){
+        
         Scanner in = new Scanner(System.in);
-
+        
+        // Taking input matrix
         System.out.println("Enter dimensions of Matrix: ");
         int row1 = in.nextInt();
         int col1 = in.nextInt();
 
         double[][] mat1 = buildMat(row1, col1);
-
+        
+        // Storing inverted matrix in mat_inv
         double[][] mat_inv = invert(mat1);
-        double[][] result = new double[row1][col1];
-
-        for (int i = 0; i < mat_inv.length; i++) {
+        
+        // Printing matrix to standard output
+        for (int i = 0; i < row1; i++) {
             for (int j = 0; j < col1; j++) {
-                result[i][j] = mat_inv[i][j];
-                System.out.println(result[i][j] + " ");
+                System.out.println(mat_inv[i][j] + " ");
             }
             System.out.println();
         }
 
     }
-
+    
+    // Method to calculate inverse of given matrix as argument
     private static double[][] invert(double[][] a) {
+        
         int n = a.length;
+        
         double[][] x = new double[n][n];
         double[][] b = new double[n][n];
+        
         int[] index = new int[n];
+        
         for (int i=0; i<n; ++i)
             b[i][i] = 1;
 
@@ -350,9 +401,9 @@ public class Main {
         return x;
     }
 
-// Method to carry out the partial-pivoting Gaussian
-// elimination.  Here index[] stores pivoting order.
 
+    // Method to carry out the partial-pivoting Gaussian elimination
+    // Here index[] stores pivoting order
     public static void gaussian(double[][] a, int[] index) {
         int n = index.length;
         double[] c = new double[n];
