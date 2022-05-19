@@ -1,461 +1,411 @@
-import java.util.ArrayList;
-import java.util.List;
+package processor;
+
 import java.util.Scanner;
 
-
-/* Main Class
- * Run the Program from here
- * Prints menu
- * Executes all operations from function calls
-*/
 public class Main {
 
-    private static Scanner scanner;
-
     public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
 
-        scanner = new Scanner(System.in);
-        boolean exit = false;
+        System.out.println("1. Add Matrices");
+        System.out.println("2. Multiply Matrix by a Constant");
+        System.out.println("3. Multiply Matrices");
+        System.out.println("4. Transpose Matrix");
+        System.out.println("5. Calculate Determinant");
+        System.out.println("6. Calculate Inverse of a Matrix");
+        System.out.println("0. Exit");
+        int dec = in.nextInt();
 
-        while(!exit) {
+        while (dec != 0) {
 
-            System.out.println("\n1. Add matrices\n" +
-                    "2. Multiply matrix by a constant\n" +
-                    "3. Multiply matrices\n" +
-                    "4. Transpose matrix\n" +
-                    "5. Calculate a determinant\n" +
-                    "6. Inverse matrix\n" +
-                    "7. Exit\n" +
-                    "Your choice: ");
-
-            int choice = Integer.parseInt(scanner.nextLine());
-
-            switch(choice) {
+            switch(dec) {
 
                 case 1:
-                    addMatrices();
+                    Addition();
                     break;
 
                 case 2:
-                    multiplyByConstant();
+                    Multi_Const();
                     break;
 
                 case 3:
-                    multiplyMatrices();
+                    Multi_Mat();
                     break;
 
                 case 4:
-                    transposeMatrix();
+                    Trans_Mat();
                     break;
 
                 case 5:
-                    calculateDeterminant();
+                    Deter();
                     break;
 
                 case 6:
-                    inverse();
-                    break;
-
-                case 7:
-                    exit = true;
+                    Inverse();
                     break;
 
                 default:
-                    System.out.println("Choose valid option.");
+                    System.out.println("Option invalid");
                     break;
             }
-
+            System.out.println();
+            System.out.println("Enter Choice:");
+            dec = in.nextInt();
         }
-
-        scanner.close();
-
+        in.close();
     }
-    
-    ///Method to trigger Addition operation
-    private static void addMatrices() {
 
-        System.out.print("Enter dimensions of first matrix: ");
-        int m = scanner.nextInt();
-        int n = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Enter first matrix:");
 
-        if (scanner.hasNextInt()) {
-            List<List<Integer>> data = new ArrayList<>();
-            for (int i = 0; i < m; i++) {
-                List<Integer> r = new ArrayList<>();
-                for (int j = 0; j < n; j++) {
-                    r.add(scanner.nextInt());
-                }
-                data.add(r);
-            }
-            scanner.nextLine();
+    public static double[][] buildMat(int row, int col) {
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter Matrix: ");
+        double[][] mat = new double[row][col];
 
-            Matrix<Integer> matrix0 = new Matrix<>(m, n, data);
-
-            System.out.print("Enter dimensions of second matrix: ");
-            m = scanner.nextInt();
-            n = scanner.nextInt();
-            scanner.nextLine();
-            System.out.println("Enter second matrix:");
-
-            data = new ArrayList<>();
-            for (int i = 0; i < m; i++) {
-                List<Integer> r = new ArrayList<>();
-                for (int j = 0; j < n; j++) {
-                    r.add(scanner.nextInt());
-                }
-                data.add(r);
-            }
-            scanner.nextLine();
-            Matrix<Integer> matrix1 = new Matrix<>(m, n, data);
-
-            try{
-                Matrix<Integer> matrix = MatrixProcessor.sum(matrix0, matrix1);
-                System.out.println("The result is:");
-                System.out.println(matrix);
-            } catch (IllegalArgumentException iae) {
-                System.out.println(iae.getMessage());
-            }
-        } else if (scanner.hasNextDouble()) {
-            List<List<Double>> data = new ArrayList<>();
-            for (int i = 0; i < m; i++) {
-                List<Double> r = new ArrayList<>();
-                for (int j = 0; j < n; j++) {
-                    r.add(scanner.nextDouble());
-                }
-                data.add(r);
-            }
-            scanner.nextLine();
-
-            Matrix<Double> matrix0 = new Matrix<>(m, n, data);
-
-            System.out.print("Enter dimensions of second matrix: ");
-            m = scanner.nextInt();
-            n = scanner.nextInt();
-            scanner.nextLine();
-            System.out.println("Enter second matrix:");
-
-            data = new ArrayList<>();
-            for (int i = 0; i < m; i++) {
-                List<Double> r = new ArrayList<>();
-                for (int j = 0; j < n; j++) {
-                    r.add(scanner.nextDouble());
-                }
-                data.add(r);
-            }
-            scanner.nextLine();
-            Matrix<Double> matrix1 = new Matrix<>(m, n, data);
-
-            try{
-                Matrix<Double> matrix = MatrixProcessor.sum(matrix0, matrix1);
-                System.out.println("The result is:");
-                System.out.println(matrix);
-            } catch (IllegalArgumentException iae) {
-                System.out.println(iae.getMessage());
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                mat[i][j] = in.nextDouble();
             }
         }
 
+        return mat;
     }
-    
-    //Method to trigger Constant Multiplication operation
-    private static void multiplyByConstant() {
 
-        System.out.print("Enter dimensions of matrix: ");
-        int m = scanner.nextInt();
-        int n = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Enter matrix:");
 
-        if (scanner.hasNextInt()) {
-            List<List<Integer>> data = new ArrayList<>();
-            for (int i = 0; i < m; i++) {
-                List<Integer> r = new ArrayList<>();
-                for (int j = 0; j < n; j++) {
-                    r.add(scanner.nextInt());
-                }
-                data.add(r);
-            }
-            scanner.nextLine();
+    public static void Addition(){
 
-            Matrix<Integer> matrix0 = new Matrix<>(m, n, data);
+        Scanner in = new Scanner(System.in);
 
-            System.out.println("Enter constant: ");
-            double scalar = scanner.nextDouble();
-            scanner.nextLine();
+        System.out.println("Enter dimensions of Matrix 1: ");
+        int row1 = in.nextInt();
+        int col1 = in.nextInt();
 
-            Matrix<Integer> matrix = MatrixProcessor.scalarMultiplication(matrix0, scalar);
-            System.out.println("The result is:");
-            System.out.println(matrix);
-        } else if (scanner.hasNextDouble()) {
-            List<List<Double>> data = new ArrayList<>();
-            for (int i = 0; i < m; i++) {
-                List<Double> r = new ArrayList<>();
-                for (int j = 0; j < n; j++) {
-                    r.add(scanner.nextDouble());
-                }
-                data.add(r);
-            }
-            scanner.nextLine();
+        double[][] mat1 = buildMat(row1, col1);
 
-            Matrix<Double> matrix0 = new Matrix<>(m, n, data);
+        System.out.println("Enter dimensions of Matrix 2: ");
+        int row2 = in.nextInt();
+        int col2 = in.nextInt();
 
-            System.out.println("Enter constant: ");
-            double scalar = scanner.nextDouble();
-            scanner.nextLine();
-
-            Matrix<Double> matrix = MatrixProcessor.scalarMultiplication(matrix0, scalar);
-            System.out.println("The result is:");
-            System.out.println(matrix);
-
+        if ((row1 != row2) || (col1 != col2)) {
+            System.out.println("Cannot add matrices with the given dimensions.");
         }
 
+        else {
+            double[][] mat2 = buildMat(row2, col2);
+            System.out.println("Added Matrix: ");
+            double[][] mat = new double[row2][col2];
+            for (int i = 0; i < row2; i++) {
+                for (int j = 0; j < col2; j++) {
+                    mat[i][j] = mat1[i][j] + mat2[i][j];
+                    System.out.print(mat[i][j] + " ");
+                }
+                System.out.println();
+            }
+        }
     }
-    
-    //Method to trigger Matrix Multiplication operation
-    private static void multiplyMatrices() {
 
-        System.out.print("Enter dimensions of first matrix: ");
-        int m = scanner.nextInt();
-        int n = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Enter first matrix:");
+    public static void Multi_Const(){
 
-        if (scanner.hasNextInt())  {
-            List<List<Integer>> data = new ArrayList<>();
-            for (int i = 0; i < m; i++) {
-                List<Integer> r = new ArrayList<>();
-                for (int j = 0; j < n; j++) {
-                    r.add(scanner.nextInt());
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Enter dimensions of Matrix: ");
+        int row1 = in.nextInt();
+        int col1 = in.nextInt();
+
+        double[][] mat = buildMat(row1, col1);
+
+        System.out.println("Enter Constant: ");
+        int n = in.nextInt();
+
+        for (int i = 0; i < row1; i++) {
+            for (int j = 0; j < col1; j++) {
+                mat[i][j] = mat[i][j] * n;
+                System.out.print(mat[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void Multi_Mat(){
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Enter dimensions of Matrix 1: ");
+        int row1 = in.nextInt();
+        int col1 = in.nextInt();
+
+        double[][] mat1 = buildMat(row1, col1);
+
+        System.out.println("Enter dimensions of Matrix 2: ");
+        int row2 = in.nextInt();
+        int col2 = in.nextInt();
+
+        if (col1 != row2) {
+            System.out.println("Cannot multiply matrices with given dimensions.");
+        }
+
+        else {
+            double[][] mat2 = buildMat(row2, col2);
+            System.out.println("Multiplied Matrix: ");
+            double[][] mat = new double[row1][col2];
+            for(int i = 0; i < row1; i++) {
+                for (int j = 0; j < col2; j++) {
+                    for (int k = 0; k < col1; k++) {
+                        mat[i][j] += mat1[i][k] * mat2[k][j];
+                    }
+                    System.out.print(mat[i][j] + " ");
                 }
-                data.add(r);
+                System.out.println();
             }
-            scanner.nextLine();
+        }
+    }
 
-            Matrix<Integer> matrix0 = new Matrix<>(m, n, data);
+    public static void Trans_Mat() {
+        Scanner in = new Scanner(System.in);
+        System.out.println("Transpose matrix along: ");
+        System.out.println("1. Main Diagonal");
+        System.out.println("2. Side Diagonal");
+        System.out.println("3. Vertical Line");
+        System.out.println("4. Horizontal Line");
+        int choice = in.nextInt();
 
-            System.out.print("Enter dimensions of second matrix: ");
-            m = scanner.nextInt();
-            n = scanner.nextInt();
-            scanner.nextLine();
-            System.out.println("Enter second matrix:");
+        if (choice == 1) {
 
-            data = new ArrayList<>();
-            for (int i = 0; i < m; i++) {
-                List<Integer> r = new ArrayList<>();
-                for (int j = 0; j < n; j++) {
-                    r.add(scanner.nextInt());
+            System.out.println("Enter dimensions of Matrix: ");
+            int row1 = in.nextInt();
+            int col1 = in.nextInt();
+
+            double[][] mat1 = buildMat(row1, col1);
+
+            double[][] mat_transposed = new double[col1][row1];
+            for (int i = 0; i < col1; i++) {
+                for (int j = 0; j < row1; j++) {
+                    mat_transposed[i][j] = mat1[j][i];
+                    System.out.print(mat_transposed[i][j] + " ");
                 }
-                data.add(r);
-            }
-            scanner.nextLine();
-            Matrix<Integer> matrix1 = new Matrix<>(m, n, data);
-
-            try{
-                Matrix<Integer> matrix = MatrixProcessor.matrixMultiplication(matrix0, matrix1);
-                System.out.println("The result is:");
-                System.out.println(matrix);
-            } catch (IllegalArgumentException iae) {
-                System.out.println(iae.getMessage());
-            }
-        } else if (scanner.hasNextDouble()) {
-            List<List<Double>> data = new ArrayList<>();
-            for (int i = 0; i < m; i++) {
-                List<Double> r = new ArrayList<>();
-                for (int j = 0; j < n; j++) {
-                    r.add(scanner.nextDouble());
-                }
-                data.add(r);
-            }
-            scanner.nextLine();
-
-            Matrix<Double> matrix0 = new Matrix<>(m, n, data);
-
-            System.out.print("Enter dimensions of second matrix: ");
-            m = scanner.nextInt();
-            n = scanner.nextInt();
-            scanner.nextLine();
-            System.out.println("Enter second matrix:");
-
-            data = new ArrayList<>();
-            for (int i = 0; i < m; i++) {
-                List<Double> r = new ArrayList<>();
-                for (int j = 0; j < n; j++) {
-                    r.add(scanner.nextDouble());
-                }
-                data.add(r);
-            }
-            scanner.nextLine();
-            Matrix<Double> matrix1 = new Matrix<>(m, n, data);
-
-            try{
-                Matrix<Double> matrix = MatrixProcessor.matrixMultiplication(matrix0, matrix1);
-                System.out.println("The result is:");
-                System.out.println(matrix);
-            } catch (IllegalArgumentException iae) {
-                System.out.println(iae.getMessage());
+                System.out.println();
             }
         }
 
-    }
-    
-    //Method to trigger Transpose operation
-    private static void transposeMatrix() {
+        else if (choice == 2) {
 
-        System.out.print("\n" +
-                "1. Main diagonal\n" +
-                "2. Side diagonal\n" +
-                "3. Vertical line\n" +
-                "4. Horizontal line\n" +
-                "Your choice: ");
+            System.out.println("Enter dimensions of Matrix: ");
+            int row1 = in.nextInt();
+            int col1 = in.nextInt();
 
-        int transposition = scanner.nextInt();
-        scanner.nextLine();
+            double[][] mat1 = buildMat(row1, col1);
 
-        System.out.print("Enter dimensions of matrix: ");
-        int m = scanner.nextInt();
-        int n = scanner.nextInt();
-        scanner.nextLine();
-
-
-
-        System.out.println("Enter matrix:");
-        List<List<Double>> data = new ArrayList<>();
-        for (int i = 0; i < m; i++) {
-            List<Double> r = new ArrayList<>();
-            for (int j = 0; j < n; j++) {
-                r.add(scanner.nextDouble());
-            }
-            data.add(r);
-        }
-        scanner.nextLine();
-
-        Matrix<Double> matrix = new Matrix<>(m, n, data);
-        executeTransposition(matrix, transposition);
-
-    }
-    
-    //Method to trigger Determinant Calculation
-    private static void calculateDeterminant() {
-
-        System.out.print("Enter dimensions of matrix: ");
-        int m = scanner.nextInt();
-        int n = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Enter matrix:");
-
-        if (scanner.hasNextInt()) {
-            List<List<Integer>> data = new ArrayList<>();
-            for (int i = 0; i < m; i++) {
-                List<Integer> r = new ArrayList<>();
-                for (int j = 0; j < n; j++) {
-                    r.add(scanner.nextInt());
+            double[][] mat_transposed = new double[col1][row1];
+            for (int i = 0; i < col1; i++) {
+                for (int j = 0; j < row1; j++) {
+                    mat_transposed[i][j] = mat1[col1 - 1 - j][row1 - 1 - i];
+                    System.out.print(mat_transposed[i][j] + " ");
                 }
-                data.add(r);
+                System.out.println();
+
             }
-            scanner.nextLine();
-
-            Matrix<Integer> matrix0 = new Matrix<>(m, n, data);
-
-            Integer det = MatrixProcessor.determinant(matrix0);
-            System.out.println("The result is:");
-            System.out.println(det);
-        } else if (scanner.hasNextDouble()) {
-            List<List<Double>> data = new ArrayList<>();
-            for (int i = 0; i < m; i++) {
-                List<Double> r = new ArrayList<>();
-                for (int j = 0; j < n; j++) {
-                    r.add(scanner.nextDouble());
-                }
-                data.add(r);
-            }
-            scanner.nextLine();
-
-            Matrix<Double> matrix0 = new Matrix<>(m, n, data);
-
-            Double det = MatrixProcessor.determinant(matrix0);
-            System.out.println("The result is: ");
-            System.out.println(det);
-
-        }
-    }
-    
-    //Method to trigger Inverse method
-    private static void inverse() {
-
-        System.out.print("Enter dimensions: ");
-        int m = scanner.nextInt();
-        int n = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Enter matrix:");
-
-        if (scanner.hasNextInt()) {
-            List<List<Integer>> data = new ArrayList<>();
-            for (int i = 0; i < m; i++) {
-                List<Integer> r = new ArrayList<>();
-                for (int j = 0; j < n; j++) {
-                    r.add(scanner.nextInt());
-                }
-                data.add(r);
-            }
-            scanner.nextLine();
-
-            Matrix<Integer> matrix0 = new Matrix<>(m, n, data);
-
-            try{
-                Matrix<Double> matrix = MatrixProcessor.inverseMatrix(matrix0);
-                System.out.println("The result is:");
-                System.out.println(matrix);
-            } catch (IllegalArgumentException iae) {
-                System.out.println(iae.getMessage());
-            }
-
-        } else if (scanner.hasNextDouble()) {
-            List<List<Double>> data = new ArrayList<>();
-            for (int i = 0; i < m; i++) {
-                List<Double> r = new ArrayList<>();
-                for (int j = 0; j < n; j++) {
-                    r.add(scanner.nextDouble());
-                }
-                data.add(r);
-            }
-            scanner.nextLine();
-
-            Matrix<Double> matrix0 = new Matrix<>(m, n, data);
-
-            try{
-                Matrix<Double> matrix = MatrixProcessor.inverseMatrix(matrix0);
-                System.out.println("The result is:");
-                System.out.println(matrix);
-            } catch (IllegalArgumentException iae) {
-                System.out.println(iae.getMessage());
-            }
-
-        }
-    }
-    
-    //Implementing Tranpose operations along chosen diagonal
-    private static <T> void executeTransposition(Matrix<T> matrix, int transposition) {
-        Matrix<T> matrix0 = new Matrix<>(matrix.getRows(), matrix.getColumns(), matrix.getTable());
-        switch(transposition) {
-            case 1:
-                matrix0 = MatrixProcessor.mdTransposition(matrix0);
-                break;
-            case 2:
-                matrix0 = MatrixProcessor.sdTransposition(matrix0);
-                break;
-            case 3:
-                matrix0 = MatrixProcessor.vlTransposition(matrix0);
-                break;
-            case 4:
-                matrix0 = MatrixProcessor.hlTransposition(matrix0);
-                break;
         }
 
-        System.out.println("The result is: ");
-        System.out.println(matrix0);
+        else if (choice == 3) {
+
+            System.out.println("Enter dimensions of Matrix: ");
+            int row1 = in.nextInt();
+            int col1 = in.nextInt();
+
+            double[][] mat1 = buildMat(row1, col1);
+
+            double[][] mat_transposed = new double[col1][row1];
+            for (int i = 0; i < col1; i++) {
+                for (int j = 0; j < row1; j++) {
+                    mat_transposed[i][j] = mat1[i][col1 - 1 - j];
+                    System.out.print(mat_transposed[i][j] + " ");
+                }
+                System.out.println();
+
+            }
+        }
+
+        else if (choice == 4) {
+
+            System.out.println("Enter dimensions of Matrix: ");
+            int row1 = in.nextInt();
+            int col1 = in.nextInt();
+
+            double[][] mat1 = buildMat(row1, col1);
+
+            double[][] mat_transposed = new double[col1][row1];
+            for (int i = 0; i < col1; i++) {
+                for (int j = 0; j < row1; j++) {
+                    mat_transposed[i][j] = mat1[row1 - 1 - i][j];
+                    System.out.print(mat_transposed[i][j] + " ");
+                }
+                System.out.println();
+
+            }
+        }
+
+        else{
+            System.out.println("Invalid Choice");
+            System.out.println();
+        }
     }
+
+    public static void Deter(){
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Enter dimensions of Matrix: ");
+        int row1 = in.nextInt();
+        int col1 = in.nextInt();
+
+        double[][] mat1 = buildMat(row1, col1);
+
+        double det = determinant(mat1);
+        System.out.println(det);
+
+    }
+
+    public static double determinant(double[][] arr) {
+
+        double result = 0;
+
+        if (arr.length == 1) {
+            result = arr[0][0];
+            return result;
+        }
+
+        if (arr.length == 2) {
+            result = arr[0][0] * arr[1][1] - arr[0][1] * arr[1][0];
+            return result;
+        }
+
+        for (int i = 0; i < arr[0].length; i++) {
+            double[][] temp = new double[arr.length - 1][arr[0].length - 1];
+
+            for (int j = 1; j < arr.length; j++) {
+                for (int k = 0; k < arr[0].length; k++) {
+
+                    if (k < i) {
+                        temp[j - 1][k] = arr[j][k];
+                    }
+
+                    else if (k > i) {
+                        temp[j - 1][k - 1] = arr[j][k];
+                    }
+                }
+            }
+            result += arr[0][i] * Math.pow(-1, i) * determinant(temp);
+        }
+        return result;
+    }
+
+    public static void Inverse(){
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Enter dimensions of Matrix: ");
+        int row1 = in.nextInt();
+        int col1 = in.nextInt();
+
+        double[][] mat1 = buildMat(row1, col1);
+
+        double[][] mat_inv = invert(mat1);
+        double[][] result = new double[row1][col1];
+
+        for (int i = 0; i < mat_inv.length; i++) {
+            for (int j = 0; j < col1; j++) {
+                result[i][j] = mat_inv[i][j];
+                System.out.println(result[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+    }
+
+    private static double[][] invert(double[][] a) {
+        int n = a.length;
+        double[][] x = new double[n][n];
+        double[][] b = new double[n][n];
+        int[] index = new int[n];
+        for (int i=0; i<n; ++i)
+            b[i][i] = 1;
+
+        // Transform the matrix into an upper triangle
+        gaussian(a, index);
+
+        // Update the matrix b[i][j] with the ratios stored
+        for (int i=0; i<n-1; ++i)
+            for (int j=i+1; j<n; ++j)
+                for (int k=0; k<n; ++k)
+                    b[index[j]][k] -= a[index[j]][i]*b[index[i]][k];
+
+        // Perform backward substitutions
+        for (int i=0; i<n; ++i) {
+            x[n-1][i] = b[index[n-1]][i]/a[index[n-1]][n-1];
+            for (int j=n-2; j>=0; --j) {
+                x[j][i] = b[index[j]][i];
+                for (int k=j+1; k<n; ++k)
+                {
+                    x[j][i] -= a[index[j]][k]*x[k][i];
+                }
+                x[j][i] /= a[index[j]][j];
+            }
+        }
+        return x;
+    }
+
+// Method to carry out the partial-pivoting Gaussian
+// elimination.  Here index[] stores pivoting order.
+
+    public static void gaussian(double[][] a, int[] index) {
+        int n = index.length;
+        double[] c = new double[n];
+
+        // Initialize the index
+        for (int i=0; i<n; ++i)
+            index[i] = i;
+
+        // Find the rescaling factors, one from each row
+        for (int i=0; i<n; ++i)
+        {
+            double c1 = 0;
+            for (int j=0; j<n; ++j)
+            {
+                double c0 = Math.abs(a[i][j]);
+                if (c0 > c1) c1 = c0;
+            }
+            c[i] = c1;
+        }
+
+        // Search the pivoting element from each column
+        int k = 0;
+        for (int j=0; j<n-1; ++j)
+        {
+            double pi1 = 0;
+            for (int i=j; i<n; ++i)
+            {
+                double pi0 = Math.abs(a[index[i]][j]);
+                pi0 /= c[index[i]];
+                if (pi0 > pi1)
+                {
+                    pi1 = pi0;
+                    k = i;
+                }
+            }
+
+            // Interchange rows according to the pivoting order
+            int itmp = index[j];
+            index[j] = index[k];
+            index[k] = itmp;
+            for (int i=j+1; i<n; ++i)
+            {
+                double pj = a[index[i]][j]/a[index[j]][j];
+
+                // Record pivoting ratios below the diagonal
+                a[index[i]][j] = pj;
+
+                // Modify other elements accordingly
+                for (int l=j+1; l<n; ++l)
+                    a[index[i]][l] -= pj*a[index[j]][l];
+            }
+        }
+    }
+
 }
-
-
 
