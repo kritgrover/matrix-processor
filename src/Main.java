@@ -71,7 +71,7 @@ public class Main {
 
     }
     
-    ///Method for adding matrices
+    ///Method to trigger Addition operation
     private static void addMatrices() {
 
         System.out.print("Enter dimensions of first matrix: ");
@@ -158,7 +158,7 @@ public class Main {
 
     }
     
-    //Method for constant multiplication
+    //Method to trigger Constant Multiplication operation
     private static void multiplyByConstant() {
 
         System.out.print("Enter dimensions of matrix: ");
@@ -212,7 +212,7 @@ public class Main {
 
     }
     
-    //Method for Matrix Multiplication
+    //Method to trigger Matrix Multiplication operation
     private static void multiplyMatrices() {
 
         System.out.print("Enter dimensions of first matrix: ");
@@ -299,7 +299,7 @@ public class Main {
 
     }
     
-    //Method to trigger transpose matrix call to be executed
+    //Method to trigger Transpose operation
     private static void transposeMatrix() {
 
         System.out.print("\n" +
@@ -335,7 +335,7 @@ public class Main {
 
     }
     
-    //Method to calculate determinant
+    //Method to trigger Determinant Calculation
     private static void calculateDeterminant() {
 
         System.out.print("Enter dimensions of matrix: ");
@@ -380,7 +380,7 @@ public class Main {
         }
     }
     
-    //Method to calculate Inverse
+    //Method to trigger Inverse method
     private static void inverse() {
 
         System.out.print("Enter dimensions: ");
